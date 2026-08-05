@@ -38,11 +38,40 @@ class TaskController extends Controller
         return redirect()->route('tasks.index')->with('success', 'Tarea creada correctamente.');
     }
 
-    public function show() {}
+    public function show(Task $task)
+    {
+        $task->load(['category', 'tags']);
 
-    public function edit() {}
+        return view('tasks.show', compact('task'));
+    }
 
-    public function update() {}
+    public function edit(Task $task)
+    {
+        $categories = Category::orderBy('name')->get();
+        $tags = Tag::orderBy('name')->get();
 
-    public function destroy() {}
+        return view('tasks.edit', compact('task', 'categories', 'tags'));
+    }
+
+    public function update(TaskRequest $request, Task $task)
+    {
+        $data = $request->validated();
+        $data['completed'] = $request->has('completed');
+
+        $tags = $data['tags'] ?? [];
+        unset($data['tags']);
+
+        $task->update($data);
+        $task->tags()->sync($tags);
+
+        return redirect()->route('tasks.index')->with('success', 'Tarea actualizada correctamente.');
+    }
+
+    public function destroy(Task $task)
+    {
+        $task->tags()->detach();
+        $task->delete();
+
+        return redirect()->route('tasks.index')->with('success', 'Tarea eliminada correctamente.');
+    }
 }
