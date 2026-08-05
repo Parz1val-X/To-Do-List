@@ -41,4 +41,15 @@
             @endif
         </div>
     </div>
+
+    <div class="card shadow-sm mt-3">
+        <div class="card-body">
+            <form action="{{ route('categories.destroy', $category) }}" method="POST"
+                onsubmit="return confirm('¿Eliminar la categoría "{{ $category->name }}"?')">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-outline-danger">Eliminar categoría</button>
+            </form>
+        </div>
+    </div>
 @endsection

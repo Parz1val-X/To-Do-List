@@ -41,4 +41,15 @@
             @endif
         </div>
     </div>
+
+    <div class="card shadow-sm mt-3">
+        <div class="card-body">
+            <form action="{{ route('tags.destroy', $tag) }}" method="POST"
+                onsubmit="return confirm('¿Eliminar la etiqueta "{{ $tag->name }}"?')">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-outline-danger">Eliminar etiqueta</button>
+            </form>
+        </div>
+    </div>
 @endsection
