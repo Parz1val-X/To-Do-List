@@ -19,13 +19,13 @@
             <div class="collapse navbar-collapse" id="mainNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Tareas</a>
+                        <a class="nav-link" href="{{ route('tasks.index') }}">Tareas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Categorías</a>
+                        <a class="nav-link" href="{{ route('categories.index') }}">Categorías</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Etiquetas</a>
+                        <a class="nav-link" href="{{ route('tags.index') }}">Etiquetas</a>
                     </li>
                 </ul>
             </div>
