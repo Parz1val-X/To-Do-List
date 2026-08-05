@@ -2,21 +2,57 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\TagRequest;
+use App\Models\Tag;
 
 class TagController extends Controller
 {
-    public function index() {}
+    public function index()
+    {
+        $tags = Tag::orderBy('name')->get();
 
-    public function create() {}
+        return view('tags.index', compact('tags'));
+    }
 
-    public function store() {}
+    public function create()
+    {
+        return view('tags.create');
+    }
 
-    public function show() {}
+    public function store(TagRequest $request)
+    {
+        Tag::create($request->validated());
 
-    public function edit() {}
+        return redirect()->route('tags.index')->with('success', 'Etiqueta creada correctamente.');
+    }
 
-    public function update() {}
+    public function show(Tag $tag)
+    {
+        $tasks = $tag->tasks()->orderBy('created_at', 'desc')->get();
 
-    public function destroy() {}
+        return view('tags.show', compact('tag', 'tasks'));
+    }
+
+    public function edit(Tag $tag)
+    {
+        return view('tags.edit', compact('tag'));
+    }
+
+    public function update(TagRequest $request, Tag $tag)
+    {
+        $tag->update($request->validated());
+
+        return redirect()->route('tags.index')->with('success', 'Etiqueta actualizada correctamente.');
+    }
+
+    public function destroy(Tag $tag)
+    {
+        if ($tag->tasks()->count() > 0) {
+            return back()->with('error', 'No se puede eliminar la etiqueta porque tiene tareas asociadas.');
+        }
+
+        $tag->delete();
+
+        return redirect()->route('tags.index')->with('success', 'Etiqueta eliminada correctamente.');
+    }
 }
