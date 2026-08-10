@@ -5,7 +5,7 @@
 @section('content')
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h1 class="h3">Nueva categoría</h1>
-        <a href="{{ route('categories.index') }}" class="btn btn-outline-secondary">Volver</a>
+        <a href="{{ route('categories.index') }}" class="btn btn-outline-secondary"><i class="bi bi-arrow-left"></i> Volver</a>
     </div>
 
     <div class="card shadow-sm">
@@ -22,7 +22,7 @@
                     @enderror
                 </div>
 
-                <button type="submit" class="btn btn-primary">Guardar</button>
+                <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg"></i> Guardar</button>
             </form>
         </div>
     </div>

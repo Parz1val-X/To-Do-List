@@ -6,8 +6,8 @@
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h1 class="h3">{{ $tag->name }}</h1>
         <div>
-            <a href="{{ route('tags.edit', $tag) }}" class="btn btn-sm btn-outline-primary">Editar</a>
-            <a href="{{ route('tags.index') }}" class="btn btn-sm btn-outline-secondary">Volver</a>
+            <a href="{{ route('tags.edit', $tag) }}" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i> Editar</a>
+            <a href="{{ route('tags.index') }}" class="btn btn-sm btn-outline-secondary"><i class="bi bi-arrow-left"></i> Volver</a>
         </div>
     </div>
 
@@ -34,7 +34,7 @@
                                     <span class="badge bg-secondary">Pendiente</span>
                                 @endif
                             </span>
-                            <a href="{{ route('tasks.show', $task) }}" class="btn btn-sm btn-outline-secondary">Ver</a>
+                            <a href="{{ route('tasks.show', $task) }}" class="btn btn-sm btn-outline-secondary"><i class="bi bi-eye"></i></a>
                         </li>
                     @endforeach
                 </ul>
@@ -48,7 +48,7 @@
                 onsubmit="return confirm('¿Eliminar la etiqueta "{{ $tag->name }}"?')">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="btn btn-outline-danger">Eliminar etiqueta</button>
+                <button type="submit" class="btn btn-outline-danger"><i class="bi bi-trash"></i> Eliminar etiqueta</button>
             </form>
         </div>
     </div>

@@ -6,8 +6,8 @@
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h1 class="h3">{{ $task->title }}</h1>
         <div>
-            <a href="{{ route('tasks.edit', $task) }}" class="btn btn-sm btn-outline-primary">Editar</a>
-            <a href="{{ route('tasks.index') }}" class="btn btn-sm btn-outline-secondary">Volver</a>
+            <a href="{{ route('tasks.edit', $task) }}" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i> Editar</a>
+            <a href="{{ route('tasks.index') }}" class="btn btn-sm btn-outline-secondary"><i class="bi bi-arrow-left"></i> Volver</a>
         </div>
     </div>
 
@@ -47,7 +47,7 @@
                 onsubmit="return confirm('¿Eliminar la tarea "{{ $task->title }}"?')">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="btn btn-outline-danger">Eliminar tarea</button>
+                <button type="submit" class="btn btn-outline-danger"><i class="bi bi-trash"></i> Eliminar tarea</button>
             </form>
         </div>
     </div>
