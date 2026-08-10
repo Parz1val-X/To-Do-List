@@ -18,4 +18,13 @@ class TagRequest extends FormRequest
             'name' => ['required', 'string', 'max:255', Rule::unique('tags')->ignore($this->route('tag'))],
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'El nombre de la etiqueta es obligatorio.',
+            'name.max' => 'El nombre no puede superar los 255 caracteres.',
+            'name.unique' => 'Ya existe una etiqueta con ese nombre.',
+        ];
+    }
 }
