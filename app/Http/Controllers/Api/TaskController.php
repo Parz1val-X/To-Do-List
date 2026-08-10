@@ -46,13 +46,63 @@ class TaskController extends Controller
 
     public function show(string $id)
     {
+        $task = Task::with(['category', 'tags'])->find($id);
+
+        if (!$task) {
+            return response()->json(['message' => 'Tarea no encontrada.'], 404);
+        }
+
+        return response()->json([
+            'data' => $task,
+            'message' => 'Tarea obtenida correctamente.',
+        ]);
     }
 
     public function update(Request $request, string $id)
     {
+        $task = Task::find($id);
+
+        if (!$task) {
+            return response()->json(['message' => 'Tarea no encontrada.'], 404);
+        }
+
+        $data = $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
+            'completed' => ['sometimes', 'boolean'],
+            'category_id' => ['nullable', 'exists:categories,id'],
+            'tags' => ['sometimes', 'array'],
+            'tags.*' => ['exists:tags,id'],
+        ]);
+
+        $tags = $data['tags'] ?? [];
+        unset($data['tags']);
+
+        if (!array_key_exists('completed', $data)) {
+            $data['completed'] = $task->completed;
+        }
+
+        $task->update($data);
+        $task->tags()->sync($tags);
+        $task->load(['category', 'tags']);
+
+        return response()->json([
+            'data' => $task,
+            'message' => 'Tarea actualizada correctamente.',
+        ]);
     }
 
     public function destroy(string $id)
     {
+        $task = Task::find($id);
+
+        if (!$task) {
+            return response()->json(['message' => 'Tarea no encontrada.'], 404);
+        }
+
+        $task->tags()->detach();
+        $task->delete();
+
+        return response()->json(['message' => 'Tarea eliminada correctamente.']);
     }
 }
