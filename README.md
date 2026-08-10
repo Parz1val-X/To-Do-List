@@ -1,66 +1,132 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# To-Do List
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplicación web para la gestión de tareas personales, construida con **Laravel**. Permite organizar el trabajo mediante **tareas**, agrupadas en **categorías** y clasificadas con **etiquetas**, a través de una interfaz web sencilla y de una **API RESTful**.
 
-## About Laravel
+## Contexto
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+El proyecto surgió como práctica de aprendizaje de Laravel: un CRUD completo (crear, listar, ver, editar y eliminar) sobre tres recursos relacionados, con validación, persistencia en MySQL y una API JSON para que pueda consumirla una aplicación externa (frontend, móvil, etc.). No incluye autenticación: tanto la web como la API son públicas.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Características principales
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- CRUD de tareas, categorías y etiquetas desde la interfaz web.
+- Las tareas se vinculan a una categoría (opcional) y a varias etiquetas.
+- Una categoría o etiqueta con tareas asociadas no puede eliminarse.
+- Interfaz responsive con Bootstrap: mensajes de éxito/error, validación de formularios y confirmación antes de eliminar.
+- API RESTful pública bajo el prefijo `/api` con respuestas JSON.
 
-## Learning Laravel
+## Tecnologías
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **Laravel 10** con PHP 8.x
+- **MySQL** (sugerencia: Laragon, que agrupa PHP, Composer y MySQL)
+- **Blade** + **Bootstrap 5** y **Bootstrap Icons** (CDN)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Requisitos previos
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- PHP 8.1 o superior
+- Composer
+- MySQL
+- Git
 
-## Laravel Sponsors
+## Puesta en marcha (instalación)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+1. Clonar el repositorio:
 
-### Premium Partners
+   ```bash
+   git clone git@github.com:Parz1val-X/To-Do-List.git
+   cd To-Do-List
+   ```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+2. Instalar las dependencias de PHP:
 
-## Contributing
+   ```bash
+   composer install
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+3. Crear el archivo de entorno:
 
-## Code of Conduct
+   ```bash
+   cp .env.example .env
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+   En Windows (cmd):
 
-## Security Vulnerabilities
+   ```bash
+   copy .env.example .env
+   ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+4. Generar la clave de la aplicación:
 
-## License
+   ```bash
+   php artisan key:generate
+   ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+5. Configurar la conexión a MySQL en `.env` (por defecto, Laragon usa root sin contraseña):
+
+   ```
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=todo_list
+   DB_USERNAME=root
+   DB_PASSWORD=
+   ```
+
+6. Crear la base de datos (por ejemplo `todo_list` desde phpMyAdmin o la CLI de Laragon) y ejecutar las migraciones:
+
+   ```bash
+   php artisan migrate
+   ```
+
+7. Levantar el servidor de desarrollo:
+
+   ```bash
+   php artisan serve
+   ```
+
+La aplicación queda disponible en `http://127.0.0.1:8000`.
+
+## Cómo usar la aplicación
+
+- La barra de navegación da acceso a **Tareas**, **Categorías** y **Etiquetas**.
+- Para empezar: crea una categoría (por ejemplo "Trabajo") y una etiqueta (por ejemplo "urgente"), y luego una tarea asignándole categoría y etiquetas.
+- Cada listado muestra las acciones **Ver**, **Editar** y **Eliminar**; los formularios validan los datos y muestran los errores junto a cada campo.
+
+## API RESTful
+
+La API está disponible bajo el prefijo `/api` y no requiere autenticación. Todos los endpoints responden en JSON.
+
+| Recurso      | Endpoints                                                     |
+|--------------|---------------------------------------------------------------|
+| Categorías   | `/api/categories` (GET, POST) · `/api/categories/{id}` (GET, PUT, DELETE) |
+| Etiquetas    | `/api/tags` (GET, POST) · `/api/tags/{id}` (GET, PUT, DELETE) |
+| Tareas       | `/api/tasks` (GET, POST) · `/api/tasks/{id}` (GET, PUT, DELETE) |
+
+Al listar, cada recurso incluye sus relaciones (las tareas traen su categoría y sus etiquetas; las categorías y etiquetas traen sus tareas).
+
+Formato típico de respuesta:
+
+- Éxito: `{ "data": ..., "message": "..." }` (códigos 200 / 201).
+- Error de validación: `{ "message": "...", "errors": { "campo": ["..."] } }` (código 422).
+- No encontrado: `{ "message": "..." }` (código 404).
+- Conflicto (eliminar algo con relaciones): `{ "message": "..." }` (código 409).
+
+### Ejemplo: crear una tarea
+
+```
+POST /api/tasks
+Content-Type: application/json
+Accept: application/json
+
+{
+    "title": "Comprar regalo",
+    "description": "Para el cumpleaños del sábado",
+    "completed": false,
+    "category_id": 3,
+    "tags": [2, 3]
+}
+```
+
+### Probar los endpoints
+
+- Con **Bruno** o **Postman**, creando una colección y usando las URLs de la tabla.
+- O desde el navegador, consultando directamente una ruta GET (por ejemplo `http://127.0.0.1:8000/api/tasks`); el JSON se puede inspeccionar con las herramientas de desarrollador (F12).
