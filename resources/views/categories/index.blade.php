@@ -5,7 +5,7 @@
 @section('content')
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h1 class="h3">Categorías</h1>
-        <a href="{{ route('categories.create') }}" class="btn btn-primary">Nueva categoría</a>
+        <a href="{{ route('categories.create') }}" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Nueva categoría</a>
     </div>
 
     <div class="card shadow-sm">
@@ -28,13 +28,13 @@
                                     <td>{{ $category->name }}</td>
                                     <td>{{ $category->tasks->count() }}</td>
                                     <td class="text-end">
-                                        <a href="{{ route('categories.show', $category) }}" class="btn btn-sm btn-outline-secondary">Ver</a>
-                                        <a href="{{ route('categories.edit', $category) }}" class="btn btn-sm btn-outline-primary">Editar</a>
+                                        <a href="{{ route('categories.show', $category) }}" class="btn btn-sm btn-outline-secondary" title="Ver"><i class="bi bi-eye"></i></a>
+                                        <a href="{{ route('categories.edit', $category) }}" class="btn btn-sm btn-outline-primary" title="Editar"><i class="bi bi-pencil"></i></a>
                                         <form action="{{ route('categories.destroy', $category) }}" method="POST" class="d-inline"
                                             onsubmit="return confirm('¿Eliminar la categoría "{{ $category->name }}"?')">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                                            <button type="submit" class="btn btn-sm btn-outline-danger" title="Eliminar"><i class="bi bi-trash"></i></button>
                                         </form>
                                     </td>
                                 </tr>
