@@ -19,11 +19,7 @@ class CategoryController extends Controller
 
     public function show(string $id)
     {
-        $category = Category::with('tasks')->find($id);
-
-        if (!$category) {
-            return response()->json(['message' => 'Categoría no encontrada.'], 404);
-        }
+        $category = Category::with('tasks')->findOrFail($id);
 
         return response()->json([
             'data' => $category,
@@ -45,11 +41,7 @@ class CategoryController extends Controller
 
     public function update(Request $request, string $id)
     {
-        $category = Category::find($id);
-
-        if (!$category) {
-            return response()->json(['message' => 'Categoría no encontrada.'], 404);
-        }
+        $category = Category::findOrFail($id);
 
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255', 'unique:categories,name,' . $category->id],
@@ -64,11 +56,7 @@ class CategoryController extends Controller
 
     public function destroy(string $id)
     {
-        $category = Category::find($id);
-
-        if (!$category) {
-            return response()->json(['message' => 'Categoría no encontrada.'], 404);
-        }
+        $category = Category::findOrFail($id);
 
         if ($category->tasks()->count() > 0) {
             return response()->json([

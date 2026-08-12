@@ -19,11 +19,7 @@ class TagController extends Controller
 
     public function show(string $id)
     {
-        $tag = Tag::with('tasks')->find($id);
-
-        if (!$tag) {
-            return response()->json(['message' => 'Etiqueta no encontrada.'], 404);
-        }
+        $tag = Tag::with('tasks')->findOrFail($id);
 
         return response()->json([
             'data' => $tag,
@@ -45,11 +41,7 @@ class TagController extends Controller
 
     public function update(Request $request, string $id)
     {
-        $tag = Tag::find($id);
-
-        if (!$tag) {
-            return response()->json(['message' => 'Etiqueta no encontrada.'], 404);
-        }
+        $tag = Tag::findOrFail($id);
 
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255', 'unique:tags,name,' . $tag->id],
@@ -64,11 +56,7 @@ class TagController extends Controller
 
     public function destroy(string $id)
     {
-        $tag = Tag::find($id);
-
-        if (!$tag) {
-            return response()->json(['message' => 'Etiqueta no encontrada.'], 404);
-        }
+        $tag = Tag::findOrFail($id);
 
         if ($tag->tasks()->count() > 0) {
             return response()->json([

@@ -44,11 +44,7 @@ class TaskController extends Controller
 
     public function show(string $id)
     {
-        $task = Task::with(['category', 'tags'])->find($id);
-
-        if (!$task) {
-            return response()->json(['message' => 'Tarea no encontrada.'], 404);
-        }
+        $task = Task::with(['category', 'tags'])->findOrFail($id);
 
         return response()->json([
             'data' => $task,
@@ -57,11 +53,7 @@ class TaskController extends Controller
 
     public function update(Request $request, string $id)
     {
-        $task = Task::find($id);
-
-        if (!$task) {
-            return response()->json(['message' => 'Tarea no encontrada.'], 404);
-        }
+        $task = Task::findOrFail($id);
 
         $data = $request->validate([
             'title' => ['required', 'string', 'max:255'],
@@ -90,11 +82,7 @@ class TaskController extends Controller
 
     public function destroy(string $id)
     {
-        $task = Task::find($id);
-
-        if (!$task) {
-            return response()->json(['message' => 'Tarea no encontrada.'], 404);
-        }
+        $task = Task::findOrFail($id);
 
         $task->tags()->detach();
         $task->delete();
