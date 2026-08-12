@@ -49,21 +49,26 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Etiquetas</label>
-                    <div>
-                        @forelse ($tags as $tag)
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="tags[]" value="{{ $tag->id }}"
-                                    id="tag-{{ $tag->id }}"
-                                    {{ in_array($tag->id, old('tags', $task->tags->pluck('id')->toArray())) ? 'checked' : '' }}>
-                                <label class="form-check-label" for="tag-{{ $tag->id }}">{{ $tag->name }}</label>
-                            </div>
-                        @empty
-                            <p class="text-muted mb-0">
-                                No hay etiquetas. <a href="{{ route('tags.create') }}">Crea una</a>.
-                            </p>
-                        @endforelse
-                    </div>
+                    <label for="tags" class="form-label">Etiquetas</label>
+                    @if ($tags->isEmpty())
+                        <p class="text-muted mb-0">
+                            No hay etiquetas. <a href="{{ route('tags.create') }}">Crea una</a>.
+                        </p>
+                    @else
+                        <select class="form-select @error('tags') is-invalid @enderror" id="tags" name="tags[]" multiple
+                            size="{{ min(5, $tags->count()) }}">
+                            @foreach ($tags as $tag)
+                                <option value="{{ $tag->id }}"
+                                    {{ in_array($tag->id, old('tags', $task->tags->pluck('id')->toArray())) ? 'selected' : '' }}>
+                                    {{ $tag->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <div class="form-text">Mantén presionada la tecla Ctrl (o Cmd en Mac) para seleccionar varias etiquetas.</div>
+                        @error('tags')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    @endif
                 </div>
 
                 <div class="mb-3 form-check">
