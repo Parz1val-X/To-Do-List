@@ -10,7 +10,7 @@ class TagController extends Controller
 {
     public function index()
     {
-        $tags = Tag::with('tasks')->get();
+        $tags = Tag::with('tasks')->paginate(10);
 
         return response()->json([
             'data' => $tags,

@@ -60,5 +60,10 @@
                 </div>
             @endif
         </div>
+        @if ($tasks->hasPages())
+            <div class="card-footer">
+                {{ $tasks->links() }}
+            </div>
+        @endif
     </div>
 @endsection

@@ -10,7 +10,7 @@ class TaskController extends Controller
 {
     public function index()
     {
-        $tasks = Task::with(['category', 'tags'])->get();
+        $tasks = Task::with(['category', 'tags'])->paginate(10);
 
         return response()->json([
             'data' => $tasks,

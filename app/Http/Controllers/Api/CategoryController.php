@@ -10,7 +10,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::with('tasks')->get();
+        $categories = Category::with('tasks')->paginate(10);
 
         return response()->json([
             'data' => $categories,

@@ -44,5 +44,10 @@
                 </div>
             @endif
         </div>
+        @if ($categories->hasPages())
+            <div class="card-footer">
+                {{ $categories->links() }}
+            </div>
+        @endif
     </div>
 @endsection
