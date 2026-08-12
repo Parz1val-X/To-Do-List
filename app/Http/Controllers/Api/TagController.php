@@ -14,7 +14,6 @@ class TagController extends Controller
 
         return response()->json([
             'data' => $tags,
-            'message' => 'Etiquetas obtenidas correctamente.',
         ]);
     }
 
@@ -28,7 +27,6 @@ class TagController extends Controller
 
         return response()->json([
             'data' => $tag,
-            'message' => 'Etiqueta obtenida correctamente.',
         ]);
     }
 
@@ -42,7 +40,6 @@ class TagController extends Controller
 
         return response()->json([
             'data' => $tag->load('tasks'),
-            'message' => 'Etiqueta creada correctamente.',
         ], 201);
     }
 
@@ -62,7 +59,6 @@ class TagController extends Controller
 
         return response()->json([
             'data' => $tag->load('tasks'),
-            'message' => 'Etiqueta actualizada correctamente.',
         ]);
     }
 
@@ -82,6 +78,6 @@ class TagController extends Controller
 
         $tag->delete();
 
-        return response()->json(['message' => 'Etiqueta eliminada correctamente.']);
+        return response()->json(null, 204);
     }
 }

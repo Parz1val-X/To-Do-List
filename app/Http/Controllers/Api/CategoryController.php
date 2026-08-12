@@ -14,7 +14,6 @@ class CategoryController extends Controller
 
         return response()->json([
             'data' => $categories,
-            'message' => 'Categorías obtenidas correctamente.',
         ]);
     }
 
@@ -28,7 +27,6 @@ class CategoryController extends Controller
 
         return response()->json([
             'data' => $category,
-            'message' => 'Categoría obtenida correctamente.',
         ]);
     }
 
@@ -42,7 +40,6 @@ class CategoryController extends Controller
 
         return response()->json([
             'data' => $category->load('tasks'),
-            'message' => 'Categoría creada correctamente.',
         ], 201);
     }
 
@@ -62,7 +59,6 @@ class CategoryController extends Controller
 
         return response()->json([
             'data' => $category->load('tasks'),
-            'message' => 'Categoría actualizada correctamente.',
         ]);
     }
 
@@ -82,6 +78,6 @@ class CategoryController extends Controller
 
         $category->delete();
 
-        return response()->json(['message' => 'Categoría eliminada correctamente.']);
+        return response()->json(null, 204);
     }
 }

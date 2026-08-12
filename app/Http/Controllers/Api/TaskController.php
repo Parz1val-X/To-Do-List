@@ -14,7 +14,6 @@ class TaskController extends Controller
 
         return response()->json([
             'data' => $tasks,
-            'message' => 'Tareas obtenidas correctamente.',
         ]);
     }
 
@@ -40,7 +39,6 @@ class TaskController extends Controller
 
         return response()->json([
             'data' => $task,
-            'message' => 'Tarea creada correctamente.',
         ], 201);
     }
 
@@ -54,7 +52,6 @@ class TaskController extends Controller
 
         return response()->json([
             'data' => $task,
-            'message' => 'Tarea obtenida correctamente.',
         ]);
     }
 
@@ -88,7 +85,6 @@ class TaskController extends Controller
 
         return response()->json([
             'data' => $task,
-            'message' => 'Tarea actualizada correctamente.',
         ]);
     }
 
@@ -103,6 +99,6 @@ class TaskController extends Controller
         $task->tags()->detach();
         $task->delete();
 
-        return response()->json(['message' => 'Tarea eliminada correctamente.']);
+        return response()->json(null, 204);
     }
 }
